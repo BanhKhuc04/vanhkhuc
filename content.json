@@ -30,7 +30,7 @@
         "label": "dự án hoàn chỉnh"
       },
       {
-        "value": 3,
+        "value": 4,
         "suffix": "",
         "label": "web đang chạy online"
       },
@@ -315,7 +315,7 @@
       "title": "E-Xanh",
       "year": "2026",
       "category": "Web app",
-      "status": "Hoàn thành",
+      "status": "Đang chạy",
       "summary": "Nền tảng sống xanh cho người trẻ: mẹo tiết kiệm điện, cộng đồng chia sẻ, tính tiền điện, có trang quản trị.",
       "description": "Người dùng đọc mẹo, lưu bài, bình luận, đăng bài chia sẻ (có duyệt) và tính tiền điện ước tính theo thiết bị. Admin và moderator có dashboard quản lý nội dung.",
       "features": [
@@ -332,17 +332,17 @@
         "Supabase",
         "Framer Motion"
       ],
-      "live": "",
+      "live": "https://exanh.online",
       "repo": "https://github.com/BanhKhuc04/E_Xanh",
-      "image": "",
-      "logo": "",
+      "image": "assets/projects/e-xanh.jpg",
+      "logo": "assets/logos/e-xanh.png",
       "icon": "leaf",
       "colors": [
         "#166534",
         "#84CC16"
       ],
       "featured": true,
-      "hub": false
+      "hub": true
     },
     {
       "slug": "youtube-clip-studio",
