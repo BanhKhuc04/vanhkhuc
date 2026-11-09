@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dự án — Khúc Việt Anh</title>
+<meta name="description" content="Các dự án của Khúc Việt Anh: web app, AI, IoT, desktop app.">
+<meta name="theme-color" content="#2E3192">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&family=Patrick+Hand&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="projects">
+
+<svg class="defs" width="0" height="0" aria-hidden="true">
+  <defs>
+    <filter id="rough" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="1" result="n">
+        <animate attributeName="seed" values="1;4;7;10" dur="0.5s" calcMode="discrete" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="5"/>
+    </filter>
+  </defs>
+</svg>
+
+<div class="cursor-dot" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"><i></i></div>
+<div class="progress" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a href="index.html" class="nav__brand" aria-label="Khúc Việt Anh — trang chủ"><span class="nav__logo" data-logo></span><span class="mono">vanhkhuc</span></a>
+  <nav class="nav__links" aria-label="Chính">
+    <a href="index.html#about">Giới thiệu</a>
+    <a href="projects.html">Dự án</a>
+    <a href="index.html#hub">Web &amp; tiện ích</a>
+  </nav>
+  <a href="index.html#contact" class="btn btn--dark magnetic">Liên hệ <span class="arr">→</span></a>
+</header>
+
+<main id="page"></main>
+
+<footer class="footer">
+  <div class="footer__bottom">
+    <span>© <span id="year">2026</span> <span data-bind="profile.name"></span></span>
+    <a href="index.html">← Về trang chủ</a>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

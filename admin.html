@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin — vanhkhuc</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&family=Patrick+Hand&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  body { font-size: 15px; }
+  body::after { display: none; }
+  .ad-top { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding: 12px var(--gut); background: rgba(245, 242, 235, .9); backdrop-filter: blur(12px); border-bottom: 1.5px solid var(--line); }
+  .ad-top .nav__logo { width: 30px; }
+  .ad-top h1 { font-size: 16px; font-weight: 700; margin-right: auto; display: flex; align-items: center; gap: 10px; }
+  .ad-mode { font-family: var(--mono); font-size: 12px; padding: 4px 10px; border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 1.2px var(--line); }
+  .ad-mode.is-dirty { background: var(--accent); }
+  .ad-top .btn { padding: 10px 18px; font-size: 14px; }
+  .btn:disabled { opacity: .4; pointer-events: none; }
+  .ad-wrap { max-width: 1180px; margin: 0 auto; padding: 32px var(--gut) 80px; }
+  .card-box { background: #fff; border: 2px solid var(--ink); border-radius: 20px; padding: clamp(20px, 3vw, 36px); }
+  .connect { max-width: 620px; margin: 48px auto; }
+  .connect h2 { font-size: clamp(28px, 4vw, 40px); letter-spacing: -.03em; line-height: 1.1; margin-bottom: 8px; }
+  .connect > p { color: rgba(14, 14, 22, .7); margin-bottom: 24px; }
+  .help { margin-top: 24px; padding: 16px 18px; border-radius: 14px; background: var(--paper); font-size: 14px; }
+  .help ol { padding-left: 20px; display: grid; gap: 4px; }
+  .help a { color: var(--k4); border-bottom: 1px solid currentColor; }
+  .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+  .f { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+  .f > span { font-size: 13px; font-weight: 600; }
+  .f small { font-weight: 400; color: rgba(14, 14, 22, .55); }
+  .f input:not([type=checkbox]), .f textarea, .f select { font: inherit; width: 100%; padding: 11px 13px; border-radius: 10px; border: 1.5px solid rgba(14, 14, 22, .2); background: #fff; color: var(--ink); transition: border-color .2s, box-shadow .2s; }
+  .f textarea { resize: vertical; line-height: 1.5; }
+  .f input:focus, .f textarea:focus, .f select:focus { outline: none; border-color: var(--k4); box-shadow: 0 0 0 3px rgba(46, 49, 146, .15); }
+  .chk { flex-direction: row; align-items: center; gap: 10px; }
+  .chk input { width: 18px; height: 18px; accent-color: var(--k4); }
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 22px; }
+  .tabs button { padding: 9px 18px; border-radius: 999px; font-weight: 600; font-size: 14px; box-shadow: inset 0 0 0 1.5px var(--ink); }
+  .tabs button.is-on { background: var(--ink); color: var(--paper); }
+  .sec-h { font-size: 22px; letter-spacing: -.02em; margin: 8px 0 16px; }
+  .sec-h:not(:first-child) { margin-top: 32px; }
+  .item { position: relative; padding: 16px 16px 2px; border-radius: 14px; background: var(--paper); margin-bottom: 12px; }
+  .item__tools { display: flex; gap: 4px; justify-content: flex-end; margin-bottom: 8px; }
+  .ic { width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center; background: #fff; box-shadow: inset 0 0 0 1.2px var(--line); font-size: 14px; }
+  .ic:hover { box-shadow: inset 0 0 0 1.5px var(--ink); }
+  .ic--del:hover { background: #B5361C; color: #fff; }
+  .add { padding: 10px 16px; border-radius: 10px; border: 1.5px dashed var(--ink); font-weight: 600; width: 100%; margin-top: 4px; }
+  .add:hover { background: var(--accent); }
+  .proj { display: grid; grid-template-columns: 280px 1fr; gap: 24px; align-items: start; }
+  .plist-ad { position: sticky; top: 84px; display: grid; gap: 6px; }
+  .plist-ad button.pi { display: flex; align-items: center; gap: 10px; text-align: left; padding: 10px 12px; border-radius: 12px; background: #fff; box-shadow: inset 0 0 0 1.2px var(--line); }
+  .plist-ad button.pi.is-on { box-shadow: inset 0 0 0 2px var(--k4); background: rgba(46, 49, 146, .06); }
+  .pi b { flex: 1; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .pi i { font-style: normal; font-size: 11px; font-family: var(--mono); color: var(--k4); }
+  .pi .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--line); flex: 0 0 8px; }
+  .pi .dot.on { background: var(--k4); }
+  .img-field { display: flex; gap: 14px; align-items: center; }
+  .img-field img { width: 96px; height: 96px; object-fit: cover; border-radius: 10px; border: 1.5px solid var(--line); background: var(--paper); flex: 0 0 96px; }
+  .img-field > div { flex: 1; display: grid; gap: 8px; }
+  .up { display: inline-flex; width: max-content; padding: 8px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; box-shadow: inset 0 0 0 1.5px var(--ink); cursor: pointer; }
+  .up:hover { background: var(--ink); color: #fff; }
+  .json { font-family: var(--mono); font-size: 13px; min-height: 60vh; }
+  .toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 140%); z-index: 100; max-width: calc(100% - 32px); padding: 14px 20px; border-radius: 14px; background: var(--ink); color: #fff; font-weight: 600; transition: transform .5s var(--ease-out); }
+  .toast.show { transform: translate(-50%, 0); }
+  .toast.err { background: #B5361C; }
+  @media (max-width: 820px) { .proj { grid-template-columns: 1fr; } .plist-ad { position: static; } }
+</style>
+</head>
+<body>
+<header class="ad-top">
+  <h1><a href="index.html" class="nav__logo" data-logo aria-label="Về trang chủ"></a> Admin nội dung <span class="ad-mode" id="mode">chưa kết nối</span></h1>
+  <button class="btn btn--ghost" id="btnPreview" disabled>Xem trước</button>
+  <button class="btn btn--ghost" id="btnDownload" disabled>Tải JSON</button>
+  <button class="btn btn--solid" id="btnSave" disabled>Lưu lên GitHub</button>
+</header>
+
+<main class="ad-wrap" id="app"></main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="admin.js"></script>
+</body>
+</html>

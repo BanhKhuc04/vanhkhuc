@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Khúc Việt Anh — Fullstack Software Engineer</title>
+<meta name="description" content="Portfolio của Khúc Việt Anh (vanhkhuc) — sinh viên Kỹ thuật phần mềm, fullstack developer: web, API, AI và IoT.">
+<meta name="theme-color" content="#2E3192">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&family=Patrick+Hand&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="is-loading" data-page="home">
+
+<svg class="defs" width="0" height="0" aria-hidden="true">
+  <defs>
+    <filter id="rough" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="1" result="n">
+        <animate attributeName="seed" values="1;4;7;10" dur="0.5s" calcMode="discrete" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="5"/>
+    </filter>
+    <pattern id="hatch" width="34" height="34" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="11" height="34" fill="#0E0E16"/>
+    </pattern>
+  </defs>
+</svg>
+
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader__logo" data-logo></div>
+  <div class="loader__count mono">vanhkhuc <span id="loadNum">0</span>%</div>
+</div>
+
+<div class="cursor-dot" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"><i></i></div>
+<div class="progress" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a href="#top" class="nav__brand" aria-label="Khúc Việt Anh — về đầu trang"><span class="nav__logo" data-logo></span><span class="mono">vanhkhuc</span></a>
+  <nav class="nav__links" aria-label="Chính">
+    <a href="#about">Giới thiệu</a>
+    <a href="#work">Dự án</a>
+    <a href="#hub">Web &amp; tiện ích</a>
+    <a href="#process">Quy trình</a>
+  </nav>
+  <a href="#contact" class="btn btn--dark magnetic">Liên hệ <span class="arr">→</span></a>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero__grid" aria-hidden="true"></div>
+  <svg class="doodle" style="--x:53%;--y:68%;--s:56px;--c:var(--k4);--dd:1.6s" viewBox="0 0 100 100" aria-hidden="true"><path pathLength="1" d="M50 6 L60 38 L94 39 L67 59 L77 92 L50 72 L23 92 L33 59 L6 39 L40 38 Z"/></svg>
+  <svg class="doodle" style="--x:3%;--y:88%;--s:110px;--dd:1.9s" viewBox="0 0 100 60" aria-hidden="true"><path pathLength="1" d="M4 30 Q 16 6, 28 30 T 52 30 T 76 30 T 98 30"/></svg>
+  <svg class="doodle" style="--x:90%;--y:84%;--s:56px;--c:var(--k4);--dd:2.1s" viewBox="0 0 100 100" aria-hidden="true"><path pathLength="1" d="M34 20 L8 50 L34 80 M66 20 L92 50 L66 80"/></svg>
+  <svg class="doodle" style="--x:52%;--y:12%;--s:48px;--dd:2.2s" viewBox="0 0 100 100" aria-hidden="true"><path pathLength="1" d="M50 50 m0 -6 a6 6 0 1 1 -1 0 M50 50 m0 -20 a20 20 0 1 1 -2 0 M50 50 m0 -36 a36 36 0 1 1 -3 0"/></svg>
+
+  <div class="hero__text">
+    <p class="hero__eyebrow fade" style="--d:.1s"><span class="pulse"></span> <span data-bind="profile.status"></span></p>
+    <p class="hero__who mono fade" style="--d:.2s"><span class="c-k">const</span> dev = <span class="c-s">"<span data-bind="profile.name"></span>"</span>; <span class="c-c">// <span data-bind="profile.role"></span></span></p>
+    <h1 class="hero__title" id="heroTitle"></h1>
+    <p class="hero__lead fade" style="--d:.9s" data-bind="hero.lead"></p>
+    <div class="hero__cta fade" style="--d:1.05s">
+      <a class="btn btn--solid magnetic" href="#work">Xem dự án <span class="arr">↘</span></a>
+      <a class="btn btn--ghost magnetic" href="#hub">Mở các web đã làm</a>
+    </div>
+  </div>
+
+  <div class="hero__art">
+    <div class="hero__stage">
+      <div class="hero__shadow" data-logo></div>
+      <div class="hero__logo" data-logo></div>
+    </div>
+    <div class="hero__note hand">logo của mình nè!</div>
+    <svg class="hero__arrow" viewBox="0 0 120 90" aria-hidden="true"><path pathLength="1" d="M8 10 C 40 4, 80 20, 96 66 M80 56 L97 70 L106 49"/></svg>
+    <svg class="badge" viewBox="0 0 200 200" aria-hidden="true">
+      <defs><path id="circ" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
+      <circle cx="100" cy="100" r="99" class="badge__bg"/>
+      <text><textPath href="#circ" textLength="486">KHÚC VIỆT ANH ✦ FULLSTACK ✦ DEV ✦ </textPath></text>
+      <circle cx="100" cy="100" r="34" class="badge__core"/>
+      <text class="badge__code" x="100" y="108" text-anchor="middle">&lt;/&gt;</text>
+    </svg>
+  </div>
+
+  <a class="scroll-hint" href="#about"><span class="hand">cuộn xuống</span><i></i></a>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquees" aria-hidden="true">
+  <div class="marquee m1" id="stackMarquee"></div>
+  <div class="marquee m2">
+    <div class="marquee__track"><span>Thiết kế bằng tay</span><b>●</b><span>Chạy bằng code</span><b>●</b><span>Deploy thật</span><b>●</b></div>
+    <div class="marquee__track"><span>Thiết kế bằng tay</span><b>●</b><span>Chạy bằng code</span><b>●</b><span>Deploy thật</span><b>●</b></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about wrap" id="about">
+  <div class="label reveal"><span>01</span> Giới thiệu</div>
+  <div class="about__grid">
+    <figure class="polaroid reveal">
+      <span class="tape" aria-hidden="true"></span>
+      <img data-bind-src="profile.avatar" alt="Ảnh chân dung" width="400" height="400">
+      <figcaption class="hand">Việt Anh đây 👋</figcaption>
+    </figure>
+    <div>
+      <p class="about__big" id="aboutText"></p>
+      <pre class="term reveal" id="term" aria-label="Thông tin tóm tắt"><span class="term__bar"><i></i><i></i><i></i><b>~/vanhkhuc — whoami</b></span><code id="termCode"></code></pre>
+    </div>
+  </div>
+  <div class="stats reveal" id="stats"></div>
+</section>
+
+<!-- SKILLS -->
+<section class="services wrap" id="services">
+  <div class="label reveal"><span>02</span> Kỹ năng</div>
+  <h2 class="h2 reveal">Từ pixel trên màn hình<br>tới con chip trong phòng.</h2>
+  <div class="services__grid" id="skills"></div>
+</section>
+
+<!-- WORK -->
+<section class="work" id="work">
+  <div class="work__sticky">
+    <div class="work__head">
+      <div>
+        <div class="label"><span>03</span> Dự án</div>
+        <h2 class="h2">Dự án chọn lọc</h2>
+      </div>
+      <div class="work__count"><span id="workNum">01</span> / <em id="workTotal">01</em><i><b id="workBar"></b></i></div>
+    </div>
+    <div class="work__track" id="workTrack"></div>
+  </div>
+</section>
+
+<!-- HUB -->
+<section class="hub wrap" id="hub">
+  <div class="label reveal"><span>04</span> Web &amp; tiện ích</div>
+  <div class="hub__head">
+    <h2 class="h2 reveal">Bấm vào là chạy.</h2>
+    <p class="reveal">Những web mình đã làm và đang chạy online — mở ra dùng thử luôn, không cần cài gì.</p>
+  </div>
+  <div class="hub__grid" id="hubGrid"></div>
+</section>
+
+<!-- BRAND -->
+<section class="brand wrap" id="brand">
+  <div class="label reveal"><span>05</span> Logo</div>
+  <h2 class="h2 reveal">Một logo.<br>Ba cách kể.</h2>
+  <div class="brand__grid">
+    <figure class="tile tile--blue reveal" style="--d:0s"><div class="tile__logo" data-logo></div><figcaption>Bản chính · Indigo</figcaption></figure>
+    <figure class="tile tile--black reveal" style="--d:.1s"><div class="tile__logo" data-logo></div><figcaption>Đơn sắc · Đen</figcaption></figure>
+    <figure class="tile tile--invert reveal" style="--d:.2s"><div class="tile__logo" data-logo></div><figcaption>Âm bản · Trắng</figcaption></figure>
+    <figure class="tile tile--build reveal">
+      <svg class="build" viewBox="160 150 1600 1640" aria-hidden="true">
+        <g class="build__guides">
+          <path d="M1810 122 L370 1562"/><path d="M1658 274 L190 1742"/><path d="M1758 230 L558 1430"/>
+          <path d="M160 274 H1760"/><path d="M160 1694 H1760"/><path d="M249 160 V1780"/><path d="M1658 160 V1780"/>
+        </g>
+        <g class="build__shape">
+          <path pathLength="1" d="M249 274H611V897L536 971V573H461V1028L539 1106L1371 274H1658L602 1330L804 1681H598L461 1358V1681H249Z"/>
+          <path pathLength="1" fill-rule="evenodd" d="M662 1346L1530 479V1693H1296V1567H859L813 1612ZM1058 1369L1298 1130L1297 1369Z"/>
+          <path pathLength="1" d="M1585 433L1658 362V1694H1585Z"/>
+        </g>
+        <path class="build__arc" pathLength="1" d="M1211 274 A160 160 0 0 0 1257.9 387.1"/>
+        <text class="build__txt" x="1060" y="400">45°</text>
+      </svg>
+      <figcaption class="build__info">
+        <h3>Dựng trên góc 45°</h3>
+        <p>Logo của Khúc Việt Anh: mọi nét chéo song song tuyệt đối, khoảng hở trắng giữ nhịp đều nhau — giống code sạch, gọn và có quy tắc. Đọc rõ ở 16px lẫn trên màn hình lớn.</p>
+        <div class="swatches">
+          <button class="sw" style="--c:#2E3192" data-copy="#2E3192"><i></i><span>Indigo</span><code>#2E3192</code></button>
+          <button class="sw" style="--c:#0E0E16" data-copy="#0E0E16"><i></i><span>Mực đen</span><code>#0E0E16</code></button>
+          <button class="sw" style="--c:#F5F2EB" data-copy="#F5F2EB"><i></i><span>Giấy</span><code>#F5F2EB</code></button>
+          <button class="sw" style="--c:#FFD23F" data-copy="#FFD23F"><i></i><span>Bút dạ quang</span><code>#FFD23F</code></button>
+        </div>
+        <p class="hand build__hint">bấm vào màu để copy mã ✦</p>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process wrap" id="process">
+  <div class="label reveal"><span>06</span> Quy trình</div>
+  <h2 class="h2 reveal">Từ bản phác thảo<br>tới bản deploy.</h2>
+  <div class="process__body" id="procBody">
+    <div class="process__line" aria-hidden="true"></div>
+    <ol class="steps">
+      <li class="step"><span class="step__n hand">01</span><h3>Hiểu vấn đề</h3><p>Hỏi đúng câu hỏi: ai dùng, dùng để làm gì, thế nào là "xong". Đọc kỹ yêu cầu trước khi gõ dòng code đầu tiên.</p></li>
+      <li class="step"><span class="step__n hand">02</span><h3>Thiết kế hệ thống</h3><p>Vẽ luồng dữ liệu, chia API và database, chọn công nghệ vừa đủ — không thừa, không thiếu.</p></li>
+      <li class="step"><span class="step__n hand">03</span><h3>Code &amp; test</h3><p>Viết code gọn, dễ đọc. Test những phần quan trọng, tự review lại trước khi gộp vào nhánh chính.</p></li>
+      <li class="step"><span class="step__n hand">04</span><h3>Deploy &amp; vận hành</h3><p>CI/CD đẩy bản mới lên server, theo dõi lỗi, sửa nhanh và cải tiến theo phản hồi thật của người dùng.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact" data-inview>
+  <svg class="doodle" style="--x:8%;--y:20%;--s:80px;--c:var(--accent)" viewBox="0 0 100 100" aria-hidden="true"><path pathLength="1" d="M50 6 L60 38 L94 39 L67 59 L77 92 L50 72 L23 92 L33 59 L6 39 L40 38 Z"/></svg>
+  <svg class="doodle" style="--x:86%;--y:70%;--s:120px;--c:#fff" viewBox="0 0 100 60" aria-hidden="true"><path pathLength="1" d="M4 30 Q 16 6, 28 30 T 52 30 T 76 30 T 98 30"/></svg>
+  <p class="contact__eyebrow hand">có cơ hội thực tập hay dự án?</p>
+  <h2 class="contact__title">
+    <span class="line"><span>Cùng build điều gì đó</span></span>
+    <span class="line"><span><em class="hl">hay ho<svg viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4 15 C 60 5, 120 20, 180 10 S 270 8, 296 14"/></svg></em> nhé.</span></span>
+  </h2>
+  <a class="contact__circle magnetic" data-mailto href="#" aria-label="Gửi email">
+    <svg viewBox="0 0 200 200" aria-hidden="true">
+      <defs><path id="circ2" d="M100,100 m-74,0 a74,74 0 1,1 148,0 a74,74 0 1,1 -148,0"/></defs>
+      <text><textPath href="#circ2" textLength="460">GỬI LỜI CHÀO ✦ GỬI LỜI CHÀO ✦ </textPath></text>
+    </svg>
+    <span class="arr">↗</span>
+  </a>
+  <a class="contact__mail" data-mailto href="#" data-bind="contact.email"></a>
+  <ul class="socials" id="socials"></ul>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="footer__big">
+    <div class="footer__logo" data-logo></div>
+    <p class="footer__slogan">Thiết kế bằng tay.<br>Chạy bằng code.<br><span>Deploy bằng niềm tin.</span></p>
+  </div>
+  <div class="footer__bottom">
+    <span>© <span id="year">2026</span> <span data-bind="profile.name"></span></span>
+    <a href="#top">Lên đầu trang ↑</a>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
