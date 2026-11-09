@@ -8,26 +8,104 @@
     "github": "https://github.com/BanhKhuc04"
   },
   "hero": {
-    "lines": ["Biến ý tưởng", "thành sản phẩm", "*chạy thật*."],
+    "lines": [
+      "Biến ý tưởng",
+      "thành sản phẩm",
+      "*chạy thật*."
+    ],
     "lead": "Mình là Việt Anh — sinh viên Kỹ thuật phần mềm, làm fullstack từ giao diện React, API, cơ sở dữ liệu tới AI và cả phần cứng IoT. Đây là nơi mình gom lại những gì đã build."
   },
   "about": {
     "text": "Mình thích build trọn vẹn một sản phẩm: từ giao diện, API, cơ sở dữ liệu, cho tới mô hình AI nhận diện hình ảnh hay con chip ESP nhấp nháy trong phòng. Mỗi dự án ở đây được làm để chạy thật, có test, có deploy — không chỉ để nộp bài.",
     "circle": "chạy thật",
     "stats": [
-      { "value": 34, "suffix": "+", "label": "repo trên GitHub" },
-      { "value": 9, "suffix": "", "label": "dự án hoàn chỉnh" },
-      { "value": 3, "suffix": "", "label": "web đang chạy online" },
-      { "value": 859, "suffix": "", "label": "test tự động trong KAPPAK Studio" }
+      {
+        "value": 34,
+        "suffix": "+",
+        "label": "repo trên GitHub"
+      },
+      {
+        "value": 9,
+        "suffix": "",
+        "label": "dự án hoàn chỉnh"
+      },
+      {
+        "value": 3,
+        "suffix": "",
+        "label": "web đang chạy online"
+      },
+      {
+        "value": 859,
+        "suffix": "",
+        "label": "test tự động trong KAPPAK Studio"
+      }
     ]
   },
   "skills": [
-    { "icon": "web", "title": "Frontend & UI", "text": "Giao diện React / Next.js nhanh, có chuyển động, chạy tốt trên điện thoại.", "tags": ["React", "Next.js", "TypeScript", "Tailwind"] },
-    { "icon": "server", "title": "Backend & API", "text": "API, xác thực, phân quyền và cơ sở dữ liệu — từ REST tới realtime WebSocket.", "tags": ["Node.js", "FastAPI", "Supabase", "SQLite"] },
-    { "icon": "ai", "title": "AI & Computer Vision", "text": "Nhận diện hình ảnh với YOLOv8, OCR, agent dùng LLM chạy local viết SQL.", "tags": ["YOLOv8", "EasyOCR", "LLM", "Python"] },
-    { "icon": "iot", "title": "IoT, Desktop & DevOps", "text": "ESP qua MQTT, app desktop Tauri/Electron, CI/CD tự deploy xuống Orange Pi.", "tags": ["MQTT", "ESP32", "Tauri", "CI/CD"] }
+    {
+      "icon": "web",
+      "title": "Frontend & UI",
+      "text": "Giao diện React / Next.js nhanh, có chuyển động, chạy tốt trên điện thoại.",
+      "tags": [
+        "React",
+        "Next.js",
+        "TypeScript",
+        "Tailwind"
+      ]
+    },
+    {
+      "icon": "server",
+      "title": "Backend & API",
+      "text": "API, xác thực, phân quyền và cơ sở dữ liệu — từ REST tới realtime WebSocket.",
+      "tags": [
+        "Node.js",
+        "FastAPI",
+        "Supabase",
+        "SQLite"
+      ]
+    },
+    {
+      "icon": "ai",
+      "title": "AI & Computer Vision",
+      "text": "Nhận diện hình ảnh với YOLOv8, OCR, agent dùng LLM chạy local viết SQL.",
+      "tags": [
+        "YOLOv8",
+        "EasyOCR",
+        "LLM",
+        "Python"
+      ]
+    },
+    {
+      "icon": "iot",
+      "title": "IoT, Desktop & DevOps",
+      "text": "ESP qua MQTT, app desktop Tauri/Electron, CI/CD tự deploy xuống Orange Pi.",
+      "tags": [
+        "MQTT",
+        "ESP32",
+        "Tauri",
+        "CI/CD"
+      ]
+    }
   ],
-  "stack": ["React", "Next.js", "TypeScript", "Node.js", "Express", "Python", "FastAPI", "Supabase", "PostgreSQL", "SQLite", "YOLOv8", "MQTT", "Tauri", "Rust", "Electron", "Docker", "GitHub Actions"],
+  "stack": [
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Node.js",
+    "Express",
+    "Python",
+    "FastAPI",
+    "Supabase",
+    "PostgreSQL",
+    "SQLite",
+    "YOLOv8",
+    "MQTT",
+    "Tauri",
+    "Rust",
+    "Electron",
+    "Docker",
+    "GitHub Actions"
+  ],
   "projects": [
     {
       "slug": "gia-pha-ho-khuc",
@@ -37,12 +115,30 @@
       "status": "Đang chạy",
       "summary": "Ứng dụng gia phả cho dòng họ: phả đồ nội ngoại kéo thả, tra cách xưng hô miền Bắc, lịch giỗ âm lịch.",
       "description": "Ứng dụng gia phả dùng được trên máy tính lẫn điện thoại. Cả họ cùng xem phả đồ, góp ý sửa thông tin, trưởng ban duyệt thay đổi.\n\nChưa nối Supabase thì app tự chạy chế độ thử với dữ liệu mẫu, lưu trên trình duyệt — tiện để demo và phát triển.",
-      "features": ["Phả đồ nội ngoại kéo thả được", "Tra cách xưng hô theo miền Bắc", "Lịch giỗ tính theo âm lịch", "Góp ý và duyệt, phân quyền theo chi", "Đăng nhập bằng magic link, mã mời cho từng người", "Nhật ký thay đổi và kho ảnh riêng tư"],
-      "stack": ["Next.js", "React", "TypeScript", "Supabase", "PostgreSQL"],
+      "features": [
+        "Phả đồ nội ngoại kéo thả được",
+        "Tra cách xưng hô theo miền Bắc",
+        "Lịch giỗ tính theo âm lịch",
+        "Góp ý và duyệt, phân quyền theo chi",
+        "Đăng nhập bằng magic link, mã mời cho từng người",
+        "Nhật ký thay đổi và kho ảnh riêng tư"
+      ],
+      "stack": [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Supabase",
+        "PostgreSQL"
+      ],
       "live": "https://gia-pha-ho-khuc.vercel.app",
       "repo": "",
       "image": "assets/projects/gia-pha.jpg",
-      "art": 1,
+      "logo": "assets/logos/gia-pha.png",
+      "icon": "tree",
+      "colors": [
+        "#7F1D1D",
+        "#D97706"
+      ],
       "featured": true,
       "hub": true
     },
@@ -54,12 +150,28 @@
       "status": "Production",
       "summary": "Hệ sinh thái tự động lồng tiếng và xử lý video cho content creator, 859 test tự động.",
       "description": "Trước đây tên là VK Dub Studio. Bộ công cụ gom mọi bước làm video của một content creator vào một chỗ: lồng tiếng tự động, tải video, quản lý kho tư liệu và tự động hoá trình duyệt.",
-      "features": ["Auto Dub: nhận dạng giọng nói → dịch → đọc lại → xuất CapCut/MP4", "Tải video TikTok, YouTube, Douyin, Facebook, Instagram không watermark", "Data Studio quản lý kho tư liệu, chống trùng bằng SHA-256", "Extension Edge/Chrome (Manifest V3) tự động hoá ChatGPT và Vbee", "859 test tự động"],
-      "stack": ["Python 3.12", "FFmpeg", "STT / TTS", "Browser Extension"],
+      "features": [
+        "Auto Dub: nhận dạng giọng nói → dịch → đọc lại → xuất CapCut/MP4",
+        "Tải video TikTok, YouTube, Douyin, Facebook, Instagram không watermark",
+        "Data Studio quản lý kho tư liệu, chống trùng bằng SHA-256",
+        "Extension Edge/Chrome (Manifest V3) tự động hoá ChatGPT và Vbee",
+        "859 test tự động"
+      ],
+      "stack": [
+        "Python 3.12",
+        "FFmpeg",
+        "STT / TTS",
+        "Browser Extension"
+      ],
       "live": "",
       "repo": "https://github.com/BanhKhuc04/vk-dub-studio",
       "image": "",
-      "art": 3,
+      "logo": "assets/logos/kappak.png",
+      "icon": "wave",
+      "colors": [
+        "#4338CA",
+        "#A855F7"
+      ],
       "featured": true,
       "hub": false
     },
@@ -71,12 +183,31 @@
       "status": "Production",
       "summary": "Lõi điều khiển phòng thông minh chạy trên Orange Pi, nói chuyện với ESP01 qua MQTT, tự cập nhật qua CI.",
       "description": "ALEX Core chạy như một service trên Orange Pi. Code đẩy lên GitHub sẽ qua CI, Orange Pi tự kéo bản mới, khởi động lại và kiểm tra sức khoẻ trước khi điều khiển phần cứng thật.",
-      "features": ["Backend FastAPI + SQLite, realtime qua SSE và MQTT", "Mosquitto có xác thực và ACL", "ESP01: lệnh → ACK → trạng thái → heartbeat, đã kiểm trên phần cứng", "CI → Orange Pi tự cập nhật → health check", "Release pipeline: semver, changelog, ZIP + SHA256, GitHub Release"],
-      "stack": ["Python", "FastAPI", "SQLite", "MQTT", "ESP01", "GitHub Actions", "Orange Pi"],
+      "features": [
+        "Backend FastAPI + SQLite, realtime qua SSE và MQTT",
+        "Mosquitto có xác thực và ACL",
+        "ESP01: lệnh → ACK → trạng thái → heartbeat, đã kiểm trên phần cứng",
+        "CI → Orange Pi tự cập nhật → health check",
+        "Release pipeline: semver, changelog, ZIP + SHA256, GitHub Release"
+      ],
+      "stack": [
+        "Python",
+        "FastAPI",
+        "SQLite",
+        "MQTT",
+        "ESP01",
+        "GitHub Actions",
+        "Orange Pi"
+      ],
       "live": "",
       "repo": "https://github.com/BanhKhuc04/AlexRoom",
       "image": "",
-      "art": 4,
+      "logo": "assets/logos/alex-room.svg",
+      "icon": "home",
+      "colors": [
+        "#0E7490",
+        "#6366F1"
+      ],
       "featured": true,
       "hub": false
     },
@@ -88,12 +219,29 @@
       "status": "Đang phát triển",
       "summary": "Giám sát cổng trường: phát hiện mũ bảo hiểm và nhận diện biển số xe máy bằng YOLOv8.",
       "description": "Camera ở cổng trường nhận ra người đi xe máy không đội mũ bảo hiểm, đọc biển số, đối chiếu danh sách xe đăng ký và ghi lại vi phạm.\n\nMình đã chủ động gỡ bỏ nhận diện khuôn mặt: dữ liệu sinh trắc học của trẻ vị thành niên có rủi ro pháp lý không đáng đánh đổi.",
-      "features": ["Pipeline: người → mũ bảo hiểm → biển số → OCR → whitelist → log vi phạm", "YOLOv8-pose phân biệt đi bộ và đang ngồi trên xe", "Đăng nhập JWT, 3 vai trò: admin / bảo vệ / quản lý", "Dashboard thống kê, quản lý xe đăng ký, tự dọn ảnh cũ"],
-      "stack": ["Python", "YOLOv8", "EasyOCR", "FastAPI", "React", "WebSocket"],
+      "features": [
+        "Pipeline: người → mũ bảo hiểm → biển số → OCR → whitelist → log vi phạm",
+        "YOLOv8-pose phân biệt đi bộ và đang ngồi trên xe",
+        "Đăng nhập JWT, 3 vai trò: admin / bảo vệ / quản lý",
+        "Dashboard thống kê, quản lý xe đăng ký, tự dọn ảnh cũ"
+      ],
+      "stack": [
+        "Python",
+        "YOLOv8",
+        "EasyOCR",
+        "FastAPI",
+        "React",
+        "WebSocket"
+      ],
       "live": "",
       "repo": "https://github.com/BanhKhuc04/school-gate-monitor",
       "image": "",
-      "art": 5,
+      "logo": "assets/logos/school-gate.png",
+      "icon": "shield",
+      "colors": [
+        "#1E3A8A",
+        "#DC2626"
+      ],
       "featured": true,
       "hub": false
     },
@@ -105,12 +253,28 @@
       "status": "Hoàn thành",
       "summary": "App Windows siêu nhẹ điều khiển máy chủ ZimaOS trong mạng LAN: bật bằng Wake-on-LAN, tắt và khởi động lại qua SSH.",
       "description": "Viết bằng Tauri v2 nên bản cài rất nhẹ và khởi động nhanh. Lệnh SSH chạy ẩn hoàn toàn, chỉ được phép đúng hai lệnh poweroff và reboot, không đóng gói mật khẩu hay private key.",
-      "features": ["Bật máy bằng Wake-on-LAN (magic packet UDP)", "Tắt / khởi động lại an toàn qua SSH", "Theo dõi trạng thái, độ trễ và uptime theo thời gian thực", "Chạy nền ở khay hệ thống, có tiếng Việt / English"],
-      "stack": ["Tauri v2", "Rust", "React", "TypeScript", "Vite"],
+      "features": [
+        "Bật máy bằng Wake-on-LAN (magic packet UDP)",
+        "Tắt / khởi động lại an toàn qua SSH",
+        "Theo dõi trạng thái, độ trễ và uptime theo thời gian thực",
+        "Chạy nền ở khay hệ thống, có tiếng Việt / English"
+      ],
+      "stack": [
+        "Tauri v2",
+        "Rust",
+        "React",
+        "TypeScript",
+        "Vite"
+      ],
       "live": "",
       "repo": "https://github.com/BanhKhuc04/zima-remote",
       "image": "",
-      "art": 2,
+      "logo": "assets/logos/zima-remote.png",
+      "icon": "power",
+      "colors": [
+        "#0284C7",
+        "#312E81"
+      ],
       "featured": true,
       "hub": false
     },
@@ -122,12 +286,27 @@
       "status": "Đang chạy",
       "summary": "Đồng hồ Pomodoro phong cách pixel-art ấm cúng cho sinh viên, có khu vườn lớn dần theo mỗi phiên học.",
       "description": "Một căn phòng pixel có nhân vật, mèo, nến và cửa sổ đổi trời theo giờ thật. Mỗi Pomodoro hoàn thành là một cây mọc thêm trong vườn.",
-      "features": ["Focus / nghỉ ngắn / nghỉ dài tự xoay vòng", "Cửa sổ ngày/đêm theo giờ thật, dark mode tự động", "Vườn cây, chuỗi ngày học và 6 thành tích", "Nhạc lo-fi, thông báo trình duyệt, phím tắt", "Lưu tiến độ bằng localStorage"],
-      "stack": ["React 18", "Vite", "Tailwind CSS"],
+      "features": [
+        "Focus / nghỉ ngắn / nghỉ dài tự xoay vòng",
+        "Cửa sổ ngày/đêm theo giờ thật, dark mode tự động",
+        "Vườn cây, chuỗi ngày học và 6 thành tích",
+        "Nhạc lo-fi, thông báo trình duyệt, phím tắt",
+        "Lưu tiến độ bằng localStorage"
+      ],
+      "stack": [
+        "React 18",
+        "Vite",
+        "Tailwind CSS"
+      ],
       "live": "https://pomo-vanh-khuc.vercel.app",
       "repo": "https://github.com/BanhKhuc04/pomo_vanhKhuc",
       "image": "assets/projects/pomo.jpg",
-      "art": 2,
+      "logo": "",
+      "icon": "tomato",
+      "colors": [
+        "#BE123C",
+        "#F59E0B"
+      ],
       "featured": true,
       "hub": true
     },
@@ -139,12 +318,29 @@
       "status": "Hoàn thành",
       "summary": "Nền tảng sống xanh cho người trẻ: mẹo tiết kiệm điện, cộng đồng chia sẻ, tính tiền điện, có trang quản trị.",
       "description": "Người dùng đọc mẹo, lưu bài, bình luận, đăng bài chia sẻ (có duyệt) và tính tiền điện ước tính theo thiết bị. Admin và moderator có dashboard quản lý nội dung.",
-      "features": ["Mẹo tiết kiệm điện, lưu bài, bình luận", "Cộng đồng chia sẻ, bài mới cần duyệt", "Công cụ tính tiền điện và lịch sử tính", "Đăng nhập Supabase Auth, chống bot bằng Turnstile", "Dashboard admin / moderator"],
-      "stack": ["React", "Vite", "React Router", "Supabase", "Framer Motion"],
+      "features": [
+        "Mẹo tiết kiệm điện, lưu bài, bình luận",
+        "Cộng đồng chia sẻ, bài mới cần duyệt",
+        "Công cụ tính tiền điện và lịch sử tính",
+        "Đăng nhập Supabase Auth, chống bot bằng Turnstile",
+        "Dashboard admin / moderator"
+      ],
+      "stack": [
+        "React",
+        "Vite",
+        "React Router",
+        "Supabase",
+        "Framer Motion"
+      ],
       "live": "",
       "repo": "https://github.com/BanhKhuc04/E_Xanh",
       "image": "",
-      "art": 4,
+      "logo": "",
+      "icon": "leaf",
+      "colors": [
+        "#166534",
+        "#84CC16"
+      ],
       "featured": true,
       "hub": false
     },
@@ -156,12 +352,28 @@
       "status": "Hoàn thành",
       "summary": "Cắt nhiều clip từ video YouTube, xem trước ngay trong trình duyệt, xuất ZIP hoặc đẩy thẳng lên Google Drive.",
       "description": "Ứng dụng lai: tải bản gốc bằng yt-dlp + FFmpeg cắt chính xác từng khung hình, hoặc ghi lại tab trình duyệt khi YouTube chặn tải.",
-      "features": ["Tải bản gốc bằng yt-dlp, cắt bằng FFmpeg", "Chế độ dự phòng: ghi tab trình duyệt bằng MediaRecorder", "Quản lý nhiều clip, đánh dấu trên timeline, sắp xếp lại", "Xuất ZIP hoặc upload Google Drive"],
-      "stack": ["Electron", "Express", "TypeScript", "FFmpeg", "Google Drive API"],
+      "features": [
+        "Tải bản gốc bằng yt-dlp, cắt bằng FFmpeg",
+        "Chế độ dự phòng: ghi tab trình duyệt bằng MediaRecorder",
+        "Quản lý nhiều clip, đánh dấu trên timeline, sắp xếp lại",
+        "Xuất ZIP hoặc upload Google Drive"
+      ],
+      "stack": [
+        "Electron",
+        "Express",
+        "TypeScript",
+        "FFmpeg",
+        "Google Drive API"
+      ],
       "live": "",
       "repo": "https://github.com/BanhKhuc04/AutoVideo",
       "image": "",
-      "art": 5,
+      "logo": "assets/logos/youtube-clip.png",
+      "icon": "scissors",
+      "colors": [
+        "#18181B",
+        "#DC2626"
+      ],
       "featured": false,
       "hub": false
     },
@@ -173,12 +385,26 @@
       "status": "Đang chạy",
       "summary": "Web đặt món ăn làm theo nhóm, có trang quản trị sản phẩm, khách hàng và đơn hàng.",
       "description": "Bài tập lớn môn FER202 làm cùng nhóm, viết lại theo React cơ bản: component, props, state, hook, React Router, Axios và json-server.",
-      "features": ["Trang chủ, chi tiết món, giỏ hàng, đăng nhập", "Admin: quản lý sản phẩm, khách hàng, đơn hàng", "Route được bảo vệ theo vai trò"],
-      "stack": ["React", "React Router", "Axios", "json-server"],
+      "features": [
+        "Trang chủ, chi tiết món, giỏ hàng, đăng nhập",
+        "Admin: quản lý sản phẩm, khách hàng, đơn hàng",
+        "Route được bảo vệ theo vai trò"
+      ],
+      "stack": [
+        "React",
+        "React Router",
+        "Axios",
+        "json-server"
+      ],
       "live": "https://fer202-ass-team-1.vercel.app",
       "repo": "https://github.com/BanhKhuc04/Fer202_Ass_Team_1",
       "image": "assets/projects/vy-food.jpg",
-      "art": 1,
+      "logo": "assets/logos/vy-food.png",
+      "icon": "bowl",
+      "colors": [
+        "#C2410C",
+        "#FBBF24"
+      ],
       "featured": false,
       "hub": true
     }
@@ -186,8 +412,14 @@
   "contact": {
     "email": "vanhkhuc.works@gmail.com",
     "socials": [
-      { "label": "GitHub", "url": "https://github.com/BanhKhuc04" },
-      { "label": "LinkedIn", "url": "https://www.linkedin.com/in/viet-anh-khuc-98b37b340/" }
+      {
+        "label": "GitHub",
+        "url": "https://github.com/BanhKhuc04"
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/in/viet-anh-khuc-98b37b340/"
+      }
     ]
   }
 }

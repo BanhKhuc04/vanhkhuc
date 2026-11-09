@@ -128,6 +128,7 @@ const F = {
   area: (path, label, rows = 4, type = '', hint = '') => `<label class="f"><span>${label} ${hint ? `<small>${hint}</small>` : ''}</span><textarea data-path="${path}" data-type="${type}" rows="${rows}">${esc(fmt(get(data, path), type))}</textarea></label>`,
   check: (path, label) => `<label class="f chk"><input type="checkbox" data-path="${path}" data-type="bool" ${get(data, path) ? 'checked' : ''}><span>${label}</span></label>`,
   select: (path, label, opts) => `<label class="f"><span>${label}</span><select data-path="${path}" data-type="${typeof opts[0][0] === 'number' ? 'number' : ''}">${opts.map(([v, t]) => `<option value="${v}" ${get(data, path) == v ? 'selected' : ''}>${t}</option>`).join('')}</select></label>`,
+  color: (path, label) => `<label class="f"><span>${label}</span><input type="color" data-path="${path}" value="${/^#[0-9a-f]{6}$/i.test(get(data, path)) ? get(data, path) : '#2e3192'}"></label>`,
   image: (path, label) => `<div class="f"><span>${label}</span><div class="img-field"><img src="${esc(get(data, path))}" alt="" data-preview="${path}" onerror="this.style.visibility='hidden'" onload="this.style.visibility=''">
     <div><input data-path="${path}" value="${esc(get(data, path))}" placeholder="assets/... hoặc https://..."><label class="up">Tải ảnh lên<input type="file" accept="image/*" data-upload="${path}" hidden></label></div></div></div>`
 };
@@ -144,8 +145,10 @@ const NEW = {
   'about.stats': () => ({ value: 0, suffix: '', label: '' }),
   skills: () => ({ icon: 'web', title: '', text: '', tags: [] }),
   'contact.socials': () => ({ label: '', url: '' }),
-  projects: () => ({ slug: '', title: 'Dự án mới', year: String(new Date().getFullYear()), category: 'Web app', status: 'Hoàn thành', summary: '', description: '', features: [], stack: [], live: '', repo: '', image: '', art: 1, featured: true, hub: false })
+  projects: () => ({ slug: '', title: 'Dự án mới', year: String(new Date().getFullYear()), category: 'Web app', status: 'Hoàn thành', summary: '', description: '', features: [], stack: [], live: '', repo: '', image: '', logo: '', icon: 'code', colors: ['#2E3192', '#5A5FE0'], featured: true, hub: false })
 };
+const ICON_OPTS = [['code', 'Code'], ['tree', 'Cây gia phả'], ['wave', 'Sóng âm'], ['home', 'Nhà thông minh'], ['shield', 'Khiên'], ['power', 'Nút nguồn'],
+  ['tomato', 'Cà chua / hẹn giờ'], ['leaf', 'Lá'], ['scissors', 'Kéo cắt'], ['bowl', 'Bát ăn'], ['chip', 'Chip'], ['eye', 'Mắt / AI']];
 
 /* ---------- views ---------- */
 const TABS = [['profile', 'Hồ sơ & Hero'], ['about', 'Giới thiệu'], ['skills', 'Kỹ năng'], ['projects', 'Dự án'], ['contact', 'Liên hệ'], ['json', 'JSON']];
@@ -183,6 +186,7 @@ function viewTab() {
 function viewProjects() {
   const ps = data.projects ||= [];
   sel = Math.min(sel, ps.length - 1);
+  if (sel >= 0 && !Array.isArray(ps[sel].colors)) ps[sel].colors = ['#2E3192', '#5A5FE0']; // so colors.0/.1 stay an array
   const p = `projects.${sel}`;
   return `<div class="proj">
     <div class="plist-ad">
@@ -200,7 +204,8 @@ function viewProjects() {
       ${F.area(p + '.stack', 'Công nghệ', 1, 'csv', 'cách nhau bằng dấu phẩy')}
       <div class="row">${F.text(p + '.live', 'Link web đang chạy')}${F.text(p + '.repo', 'Link GitHub', 'để trống nếu repo riêng tư')}</div>
       ${F.image(p + '.image', 'Ảnh đại diện (tỉ lệ dọc 4:5 đẹp nhất)')}
-      ${F.select(p + '.art', 'Hình minh hoạ khi không có ảnh', [[1, '1 · Logo trên nền xanh'], [2, '2 · Nét vẽ tay nền vàng'], [3, '3 · Vòng sóng nền đen'], [4, '4 · Hộp sọc chéo'], [5, '5 · Chữ viền chéo màu']])}
+      ${F.image(p + '.logo', 'Logo dự án (vuông, hiện giữa bìa)')}
+      <div class="row">${F.select(p + '.icon', 'Icon khi không có logo', ICON_OPTS)}${F.color(p + '.colors.0', 'Màu nền 1')}${F.color(p + '.colors.1', 'Màu nền 2')}</div>
       <div class="row">${F.check(p + '.featured', 'Hiện ở "Dự án chọn lọc" trang chủ')}${F.check(p + '.hub', 'Hiện ở "Web & tiện ích" (cần link web)')}</div>`}
     </div></div>`;
 }

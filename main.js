@@ -25,10 +25,23 @@ const ICONS = {
   ai: 'M4 32 C 14 14, 50 14, 60 32 C 50 50, 14 50, 4 32 Z M32 32 m-9 0 a9 9 0 1 0 18 0 a9 9 0 1 0 -18 0 M32 32 h0.1',
   iot: 'M18 18 H46 V46 H18 Z M26 26 H38 V38 H26 Z M24 18 V8 M32 18 V8 M40 18 V8 M24 46 V56 M32 46 V56 M40 46 V56 M18 24 H8 M18 32 H8 M18 40 H8 M46 24 H56 M46 32 H56 M46 40 H56'
 };
-const DOODLES = `<svg class="a2-doodles" viewBox="0 0 400 500" aria-hidden="true">
-<path d="M60 90 C 120 40, 180 140, 240 80 S 340 60, 350 120"/><path d="M80 260 m0 -40 a40 40 0 1 1 -2 0"/>
-<path d="M260 230 L276 280 L330 282 L287 312 L302 362 L260 333 L218 362 L233 312 L190 282 L244 280 Z"/>
-<path d="M50 420 L110 380 L170 420 L230 380 L290 420 L350 380"/></svg>`;
+// project icons (48×48 line art), used on covers when a project has no logo image
+const PICONS = {
+  tree: 'M24 5a4 4 0 1 1 0 8a4 4 0 1 1 0-8Z M24 13V18 M12 18H36 M12 18V22 M36 18V22 M12 22a4 4 0 1 1 0 8a4 4 0 1 1 0-8Z M36 22a4 4 0 1 1 0 8a4 4 0 1 1 0-8Z M12 30V34 M6 34H18 M6 34V38 M18 34V38 M36 30V38 M6 38a3 3 0 1 1 0 6a3 3 0 1 1 0-6Z M18 38a3 3 0 1 1 0 6a3 3 0 1 1 0-6Z M36 38a3 3 0 1 1 0 6a3 3 0 1 1 0-6Z',
+  wave: 'M6 20v8 M12 14v20 M18 8v32 M24 16v16 M30 11v26 M36 18v12 M42 22v4',
+  home: 'M7 22 L24 8 L41 22 M11 19 V40 H37 V19 M18 30 q6 -5 12 0 M21 34 q3 -2.5 6 0 M24 37.5 h0.01',
+  shield: 'M24 5 L39 11 V23 C39 33 32 40 24 43 C16 40 9 33 9 23 V11 Z M17 24 l5 5 l9 -10',
+  power: 'M24 6 V22 M14 12 A15 15 0 1 0 34 12',
+  tomato: 'M24 14a14 14 0 1 1 0 28a14 14 0 1 1 0-28Z M24 14 C20 9 15 10 12 11 M24 14 C28 9 33 10 36 11 M24 14 V6 M24 22 V28 L29 32',
+  leaf: 'M10 38 C10 18 22 8 40 8 C40 26 30 38 10 38 Z M10 38 L28 20',
+  scissors: 'M12 9a5 5 0 1 1 0 10a5 5 0 1 1 0-10Z M12 29a5 5 0 1 1 0 10a5 5 0 1 1 0-10Z M16 17 L40 36 M16 31 L40 12',
+  bowl: 'M6 24 H42 C42 34 34 40 24 40 C14 40 6 34 6 24 Z M17 43 H31 M17 18 C17 14 20 14 20 10 M24 18 C24 14 27 14 27 10 M31 18 C31 14 34 14 34 10',
+  code: 'M17 14 L7 24 L17 34 M31 14 L41 24 L31 34 M27 10 L21 38',
+  chip: 'M14 14 H34 V34 H14 Z M20 20 H28 V28 H20 Z M19 14 V7 M24 14 V7 M29 14 V7 M19 34 V41 M24 34 V41 M29 34 V41 M14 19 H7 M14 24 H7 M14 29 H7 M34 19 H41 M34 24 H41 M34 29 H41',
+  eye: 'M4 24 C12 12 36 12 44 24 C36 36 12 36 4 24 Z M24 17a7 7 0 1 1 0 14a7 7 0 1 1 0-14Z'
+};
+const PALETTE = [['#2E3192', '#5A5FE0'], ['#7F1D1D', '#D97706'], ['#0E7490', '#6366F1'], ['#166534', '#84CC16'], ['#BE123C', '#F59E0B']];
+const hex = c => /^#[0-9a-f]{3,8}$/i.test(c || '') ? c : null; // colours go into inline CSS
 const MARK = `<svg viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4 15 C 60 5, 120 20, 180 10 S 270 8, 296 14"/></svg>`;
 
 $$('[data-logo]').forEach(el => el.insertAdjacentHTML('afterbegin', LOGO));
@@ -44,25 +57,33 @@ async function loadContent() {
   return r.json();
 }
 
-function artInner(p) {
-  const t = esc(p.title);
-  if (p.image) return `<img src="${url(p.image)}" alt="Ảnh chụp ${t}" loading="lazy">`;
-  switch (+p.art) {
-    case 2: return `${DOODLES}<span class="a2-word hand">${esc(String(p.title).split(' ')[0])}</span>`;
-    case 3: return `<i></i><i></i><i></i><i></i><div class="a3">${LOGO}</div>`;
-    case 4: return `<div class="a4-box">${LOGO}<span>${t}</span></div>`;
-    case 5: return `<span class="a5-type">${t.split(' ').join('<br>')}</span><span class="a5-date hand">${esc(p.year)}</span>`;
-    default: return `<div class="a1">${LOGO}</div>`;
-  }
+// Project cover: gradient in the project's colours, glass tile with its logo/icon, floating stack chips.
+// withShot: also show the screenshot in a tilted frame (cards only).
+function cover(p, withShot = true) {
+  const seed = [...String(p.slug)].reduce((a, ch) => a + ch.charCodeAt(0), 0); // stable fallback colours
+  const [d1, d2] = PALETTE[seed % PALETTE.length];
+  const c1 = hex(p.colors?.[0]) || d1, c2 = hex(p.colors?.[1]) || d2;
+  const shot = withShot && p.image;
+  const mark = p.logo
+    ? `<img src="${url(p.logo)}" alt="Logo ${esc(p.title)}" loading="lazy">`
+    : `<svg viewBox="0 0 48 48" aria-hidden="true"><path d="${PICONS[p.icon] || PICONS.code}"/></svg>`;
+  return `<span class="cv ${shot ? 'cv--shot' : ''}" style="--c1:${c1};--c2:${c2}">
+    <span class="cv__blob"></span><span class="cv__blob cv__blob--2"></span><span class="cv__grid"></span>
+    <span class="cv__rings"><i></i><i></i></span>
+    <span class="cv__slug mono">~/${esc(p.slug)}</span>
+    ${shot ? `<span class="cv__shot"><img src="${url(p.image)}" alt="Ảnh chụp ${esc(p.title)}" loading="lazy"></span>` : ''}
+    <span class="cv__icon">${mark}</span>
+    <span class="cv__chips">${(p.stack || []).slice(0, 3).map((s, k) => `<span style="--i:${k}">${esc(s)}</span>`).join('')}</span>
+  </span>`;
 }
-const artClass = p => p.image ? 'art--img' : `art--${[1, 2, 3, 4, 5].includes(+p.art) ? +p.art : 1}`;
+const shotHTML = p => p.image ? `<img class="browser__img" src="${url(p.image)}" alt="Ảnh chụp ${esc(p.title)}" loading="lazy">` : cover(p, false);
 
 const cardHTML = p => `<a class="card" href="${projectUrl(p)}" data-cursor="Xem ↗" data-cat="${esc(p.category)}">
-  <div class="card__art art ${artClass(p)}">${artInner(p)}<span class="art__tag">${esc(p.category)}</span></div>
+  <div class="card__art art">${cover(p)}<span class="art__tag">${esc(p.category)}</span></div>
   <div class="card__meta"><h3>${esc(p.title)}</h3><span>${esc(p.year)}</span></div></a>`;
 
-const browserHTML = (p, inner) => `<span class="browser__bar"><i></i><i></i><i></i><b class="mono">${esc(p.live ? host(p.live) : p.title)}</b></span>
-  <span class="browser__view art ${artClass(p)}">${inner}</span>`;
+const browserHTML = p => `<span class="browser__bar"><i></i><i></i><i></i><b class="mono">${esc(p.live ? host(p.live) : p.title)}</b></span>
+  <span class="browser__view">${shotHTML(p)}</span>`;
 
 function renderBinds(C) {
   $$('[data-bind]').forEach(el => { el.textContent = get(C, el.dataset.bind) ?? ''; });
@@ -102,7 +123,7 @@ function renderHome(C) {
 
   const apps = projects.filter(p => p.hub && p.live);
   $('#hubGrid').innerHTML = apps.map((p, i) => `<article class="app reveal" style="--d:${i * .1}s">
-    <a class="browser app__screen" href="${url(p.live)}" target="_blank" rel="noopener" data-cursor="Mở ↗">${browserHTML(p, artInner(p))}</a>
+    <a class="browser app__screen" href="${url(p.live)}" target="_blank" rel="noopener" data-cursor="Mở ↗">${browserHTML(p)}</a>
     <div class="app__body">
       <div><p class="app__cat mono">${esc(p.category)}</p><h3>${esc(p.title)}</h3><p>${esc(p.summary)}</p></div>
       <div class="app__actions">
@@ -157,7 +178,7 @@ function renderProjects(C) {
         ${p.repo ? `<a class="btn btn--ghost magnetic" href="${url(p.repo)}" target="_blank" rel="noopener">Source code</a>` : '<span class="pd__note hand">source code để riêng tư</span>'}
       </div>
     </header>
-    <div class="pd__media wrap fade" style="--d:.5s"><div class="browser">${browserHTML(p, artInner(p))}</div></div>
+    <div class="pd__media wrap fade" style="--d:.5s"><div class="browser">${browserHTML(p)}</div></div>
     <div class="pd__body wrap">
       <div class="pd__main">
         <h2 class="reveal">Về dự án</h2>
