@@ -167,36 +167,28 @@ function renderProjects(C) {
 
   const p = projects[i], prev = projects[(i - 1 + projects.length) % projects.length], next = projects[(i + 1) % projects.length];
   document.title = `${p.title} — Khúc Việt Anh`;
+  document.body.classList.add('pd-page');
   main.innerHTML = `<article class="pd">
-    <header class="pd__head wrap">
+    <div class="pd__info">
       <a class="pd__back" href="projects.html">← Tất cả dự án</a>
       <p class="pd__meta mono fade">${esc(p.category)} · ${esc(p.year)} <span class="pill">${esc(p.status)}</span></p>
       <h1 class="pd__title"><span class="line"><span>${esc(p.title)}</span></span></h1>
-      <p class="pd__lead fade" style="--d:.3s">${esc(p.summary)}</p>
-      <div class="hero__cta fade" style="--d:.45s">
+      <p class="pd__lead fade" style="--d:.2s">${esc(p.summary)}</p>
+      <div class="pd__cta fade" style="--d:.3s">
         ${p.live ? `<a class="btn btn--solid magnetic" href="${url(p.live)}" target="_blank" rel="noopener">Mở web <span class="arr">↗</span></a>` : ''}
         ${p.repo ? `<a class="btn btn--ghost magnetic" href="${url(p.repo)}" target="_blank" rel="noopener">Source code</a>` : '<span class="pd__note hand">source code để riêng tư</span>'}
       </div>
-    </header>
-    <div class="pd__media wrap fade" style="--d:.5s"><div class="browser">${browserHTML(p)}</div></div>
-    <div class="pd__body wrap">
-      <div class="pd__main">
-        <h2 class="reveal">Về dự án</h2>
-        ${String(p.description || '').split(/\n\s*\n/).filter(Boolean).map(t => `<p class="reveal">${esc(t)}</p>`).join('')}
-        ${(p.features || []).length ? `<h2 class="reveal">Tính năng chính</h2>
-        <ul class="checks">${p.features.map((f, k) => `<li class="reveal" style="--d:${k * .06}s"><svg viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M4 13 L10 18 L20 5"/></svg>${esc(f)}</li>`).join('')}</ul>` : ''}
-      </div>
-      <aside class="pd__side reveal">
-        <h3>Công nghệ</h3>
-        <ul class="chips">${(p.stack || []).map(s => `<li>${esc(s)}</li>`).join('')}</ul>
-        <dl><dt>Loại</dt><dd>${esc(p.category)}</dd><dt>Năm</dt><dd>${esc(p.year)}</dd><dt>Trạng thái</dt><dd>${esc(p.status)}</dd>
-        ${p.live ? `<dt>Link</dt><dd><a href="${url(p.live)}" target="_blank" rel="noopener">${esc(host(p.live))}</a></dd>` : ''}</dl>
-      </aside>
+      <div class="pd__desc fade" style="--d:.4s">${String(p.description || '').split(/\n\s*\n/).filter(Boolean).map(t => `<p>${esc(t)}</p>`).join('')}</div>
+      <ul class="chips fade" style="--d:.5s">${(p.stack || []).map(s => `<li>${esc(s)}</li>`).join('')}</ul>
     </div>
-    <nav class="pd__nav wrap" aria-label="Dự án khác">
-      <a href="${projectUrl(prev)}"><small>← Dự án trước</small>${esc(prev.title)}</a>
-      <a href="${projectUrl(next)}"><small>Dự án tiếp →</small>${esc(next.title)}</a>
-    </nav></article>`;
+    <div class="pd__right">
+      <div class="pd__media fade" style="--d:.3s"><div class="browser">${browserHTML(p)}</div></div>
+      ${(p.features || []).length ? `<ul class="checks fade" style="--d:.5s">${p.features.map(f => `<li><svg viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M4 13 L10 18 L20 5"/></svg>${esc(f)}</li>`).join('')}</ul>` : ''}
+      <nav class="pd__nav fade" style="--d:.6s" aria-label="Dự án khác">
+        <a href="${projectUrl(prev)}"><small>← Dự án trước</small><span>${esc(prev.title)}</span></a>
+        <a href="${projectUrl(next)}"><small>Dự án tiếp →</small><span>${esc(next.title)}</span></a>
+      </nav>
+    </div></article>`;
 }
 
 /* ---------- loader ---------- */
