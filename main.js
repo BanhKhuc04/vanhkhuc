@@ -475,6 +475,32 @@ function initEffects() {
     if (m) { const v = m.parentElement.querySelector('video'); v.muted = false; v.controls = true; v.play().catch(() => {}); m.remove(); }
   });
 
+  // logo section: tone buttons recolour the big logo, letter buttons trace K / V / A on it
+  const box = $('#brandBox');
+  if (box) {
+    $$('[data-set-tone]', box).forEach(b => b.addEventListener('click', () => {
+      box.dataset.tone = b.dataset.setTone;
+      $$('[data-set-tone]', box).forEach(x => x.classList.toggle('is-on', x === b));
+    }));
+    const show = (l, auto) => {
+      box.dataset.show = l;
+      if (!auto) box.classList.add('touched');
+      $$('[data-letter]', box).forEach(x => x.classList.toggle('is-on', x.dataset.letter === l));
+    };
+    // until the visitor picks a letter, walk K → V → A → whole logo while the section is on screen
+    let step = 0, onScreen = false;
+    new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; }, { threshold: .4 }).observe(box);
+    if (!reduce) setInterval(() => {
+      if (onScreen && !box.classList.contains('touched')) show(['k', 'v', 'a', ''][step++ % 4], true);
+    }, 1800);
+    $$('[data-letter]', box).forEach(b => {
+      b.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') show(b.dataset.letter); });
+      b.addEventListener('focus', () => show(b.dataset.letter));
+      b.addEventListener('click', () => show(box.dataset.show === b.dataset.letter && !fine ? '' : b.dataset.letter)); // tap again to show all
+    });
+    $('.brand__letters', box).addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') show(''); });
+  }
+
   $$('[data-copy]').forEach(b => b.addEventListener('click', async () => {
     try { await navigator.clipboard.writeText(b.dataset.copy); } catch { return; }
     b.classList.add('copied');

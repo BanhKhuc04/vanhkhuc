@@ -172,37 +172,56 @@
 <!-- BRAND -->
 <section class="brand wrap" id="brand">
   <div class="label reveal"><span>07</span> Logo</div>
-  <h2 class="h2 reveal">Một logo.<br>Ba cách kể.</h2>
-  <div class="brand__grid">
-    <figure class="tile tile--blue reveal" style="--d:0s"><div class="tile__logo" data-logo></div><figcaption>Bản chính · Indigo</figcaption></figure>
-    <figure class="tile tile--black reveal" style="--d:.1s"><div class="tile__logo" data-logo></div><figcaption>Đơn sắc · Đen</figcaption></figure>
-    <figure class="tile tile--invert reveal" style="--d:.2s"><div class="tile__logo" data-logo></div><figcaption>Âm bản · Trắng</figcaption></figure>
-    <figure class="tile tile--build reveal">
-      <svg class="build" viewBox="160 150 1600 1640" aria-hidden="true">
-        <g class="build__guides">
+  <h2 class="h2 reveal">Ba chữ cái.<br>Một cái tên.</h2>
+  <div class="brand__box reveal" id="brandBox" data-tone="blue" data-show="">
+    <div class="brand__stage">
+      <svg class="brand__svg" viewBox="0 110 1940 1730" role="img" aria-label="Logo K4 ghép từ ba chữ K, V, A">
+        <g class="brand__guides" aria-hidden="true">
           <path d="M1810 122 L370 1562"/><path d="M1658 274 L190 1742"/><path d="M1758 230 L558 1430"/>
           <path d="M160 274 H1760"/><path d="M160 1694 H1760"/><path d="M249 160 V1780"/><path d="M1658 160 V1780"/>
         </g>
-        <g class="build__shape">
-          <path pathLength="1" d="M249 274H611V897L536 971V573H461V1028L539 1106L1371 274H1658L602 1330L804 1681H598L461 1358V1681H249Z"/>
-          <path pathLength="1" fill-rule="evenodd" d="M662 1346L1530 479V1693H1296V1567H859L813 1612ZM1058 1369L1298 1130L1297 1369Z"/>
-          <path pathLength="1" d="M1585 433L1658 362V1694H1585Z"/>
+        <g class="brand__logo">
+          <path d="M249 274H611V897L536 971V573H461V1028L539 1106L1371 274H1658L602 1330L804 1681H598L461 1358V1681H249Z"/>
+          <path fill-rule="evenodd" d="M662 1346L1530 479V1693H1296V1567H859L813 1612ZM1058 1369L1298 1130L1297 1369Z"/>
+          <path d="M1585 433L1658 362V1694H1585Z"/>
         </g>
-        <path class="build__arc" pathLength="1" d="M1211 274 A160 160 0 0 0 1257.9 387.1"/>
-        <text class="build__txt" x="1060" y="400">45°</text>
+        <defs>
+          <clipPath id="clipK"><polygon points="240,265 461,265 461,1059 1255,265 1700,265 1700,1700 240,1700"/></clipPath>
+          <clipPath id="clipV"><polygon points="455,265 1680,265 602,1343 455,1196"/></clipPath>
+        </defs>
+        <g class="brand__hl" aria-hidden="true">
+          <g data-l="k"><path clip-path="url(#clipK)" d="M249 274H611V897L536 971V573H461V1028L539 1106L1371 274H1658L602 1330L804 1681H598L461 1358V1681H249Z"/></g>
+          <g data-l="v"><path clip-path="url(#clipV)" d="M249 274H611V897L536 971V573H461V1028L539 1106L1371 274H1658L602 1330L804 1681H598L461 1358V1681H249Z"/></g>
+          <g data-l="a"><path fill-rule="evenodd" d="M662 1346L1530 479V1693H1296V1567H859L813 1612ZM1058 1369L1298 1130L1297 1369Z"/></g>
+        </g>
+        <g class="brand__tag" data-l="k" aria-hidden="true"><text x="30" y="1010">K</text><text class="sm" x="20" y="1100">Khúc</text></g>
+        <g class="brand__tag" data-l="v" aria-hidden="true"><text x="1700" y="300">V</text><text class="sm" x="1690" y="390">Việt</text></g>
+        <g class="brand__tag" data-l="a" aria-hidden="true"><text x="1720" y="1250">A</text><text class="sm" x="1715" y="1340">Anh</text></g>
       </svg>
-      <figcaption class="build__info">
-        <h3>Dựng trên góc 45°</h3>
-        <p>Logo của Khúc Việt Anh: mọi nét chéo song song tuyệt đối, khoảng hở trắng giữ nhịp đều nhau — giống code sạch, gọn và có quy tắc. Đọc rõ ở 16px lẫn trên màn hình lớn.</p>
-        <div class="swatches">
-          <button class="sw" style="--c:#2E3192" data-copy="#2E3192"><i></i><span>Indigo</span><code>#2E3192</code></button>
-          <button class="sw" style="--c:#0E0E16" data-copy="#0E0E16"><i></i><span>Mực đen</span><code>#0E0E16</code></button>
-          <button class="sw" style="--c:#F5F2EB" data-copy="#F5F2EB"><i></i><span>Giấy</span><code>#F5F2EB</code></button>
-          <button class="sw" style="--c:#FFD23F" data-copy="#FFD23F"><i></i><span>Bút dạ quang</span><code>#FFD23F</code></button>
-        </div>
-        <p class="hand build__hint">bấm vào màu để copy mã ✦</p>
-      </figcaption>
-    </figure>
+      <div class="brand__tones" role="group" aria-label="Đổi màu logo">
+        <button class="is-on" data-set-tone="blue" style="--c:#2E3192"><i></i>Indigo</button>
+        <button data-set-tone="black" style="--c:#0E0E16"><i></i>Đen</button>
+        <button data-set-tone="invert" style="--c:#fff"><i></i>Âm bản</button>
+      </div>
+    </div>
+    <div class="brand__info">
+      <h3>Không phải số 4 — đó là tên mình: <em>K · V · A</em></h3>
+      <p>Khúc Việt Anh viết tắt thành ba chữ cái, rồi lồng vào nhau trong cùng một khối: các chữ dùng chung nét với nhau, nhìn nhanh thì thấy "K4", nhìn kỹ mới đọc ra cả cái tên.</p>
+      <div class="brand__letters">
+        <button data-letter="k"><b>K</b><span>Khúc</span><small>Họ của mình, đứng làm nền. Nét đứng bên trái là thân chữ K, cánh chéo vươn lên và chân chéo đá xuống dưới.</small></button>
+        <button data-letter="v"><b>V</b><span>Việt</span><small>Khe mảnh ở giữa đi thẳng xuống, chạm đáy rồi bật lên theo cánh chéo của K — hai nét gặp nhau thành chữ V.</small></button>
+        <button data-letter="a"><b>A</b><span>Anh</span><small>Khối bên phải trông như số 4, nhưng là chữ A: cạnh chéo, chân thẳng và thanh ngang ở giữa.</small></button>
+      </div>
+      <p>Mọi nét chéo nghiêng đúng 45° và song song tuyệt đối, khoảng hở trắng giữ nhịp đều — gọn và có quy tắc như code sạch. Ba chữ chung một khối, như cách mình thích làm một sản phẩm: nhiều phần, chạy thành một.</p>
+      <p class="hand brand__hint">rê chuột hoặc chạm vào từng chữ để xem nó nằm ở đâu ✦</p>
+      <div class="swatches">
+        <button class="sw" style="--c:#2E3192" data-copy="#2E3192"><i></i><span>Indigo</span><code>#2E3192</code></button>
+        <button class="sw" style="--c:#0E0E16" data-copy="#0E0E16"><i></i><span>Mực đen</span><code>#0E0E16</code></button>
+        <button class="sw" style="--c:#F5F2EB" data-copy="#F5F2EB"><i></i><span>Giấy</span><code>#F5F2EB</code></button>
+        <button class="sw" style="--c:#FFD23F" data-copy="#FFD23F"><i></i><span>Bút dạ quang</span><code>#FFD23F</code></button>
+      </div>
+      <p class="hand brand__hint">bấm vào màu để copy mã ✦</p>
+    </div>
   </div>
 </section>
 
