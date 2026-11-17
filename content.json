@@ -409,6 +409,25 @@
       "hub": true
     }
   ],
+  "posts": [
+    {
+      "slug": "pomodoro-hoc-tap-trung",
+      "title": "Học 25 phút, nghỉ 5 phút: Pomodoro cho người hay xao nhãng",
+      "date": "2026-11-17",
+      "tag": "Mẹo hay",
+      "summary": "Cách chia giờ học đơn giản giúp mình ngồi vào bàn dễ hơn — kèm một cái đồng hồ pixel-art miễn phí mình tự làm.",
+      "body": "Ngồi vào bàn thì dễ, tập trung được mới khó. Mẹo mình hay dùng là Pomodoro: chia việc thành từng phiên ngắn, xong phiên nào thưởng phiên đó.\n\n## Cách làm\n- Chọn **một việc** duy nhất cho phiên này.\n- Hẹn giờ 25 phút, cất điện thoại, chỉ làm đúng việc đó.\n- Hết giờ thì nghỉ 5 phút: đứng dậy, uống nước, nhìn ra xa.\n- Sau 4 phiên, nghỉ dài 15–30 phút.\n\n## Vì sao hợp với sinh viên\n25 phút đủ ngắn để không ngại bắt đầu, và đủ dài để làm xong một phần bài. Đếm số phiên mỗi ngày cũng cho mình biết hôm nay đã học thật sự bao nhiêu.\n\n## Tiện ích mình làm: POMO TIME\nMình tự làm một đồng hồ Pomodoro phong cách pixel-art: tự xoay vòng focus / nghỉ ngắn / nghỉ dài, có nhạc lo-fi, phím tắt, và một khu vườn mọc thêm cây sau mỗi phiên học. Mở web là dùng, không cần cài hay đăng nhập.",
+      "image": "assets/projects/pomo.jpg",
+      "video": "",
+      "link": "https://pomo-vanh-khuc.vercel.app",
+      "linkLabel": "Dùng thử POMO TIME",
+      "pin": true,
+      "colors": [
+        "#2E3192",
+        "#5A5FE0"
+      ]
+    }
+  ],
   "contact": {
     "email": "vanhkhuc.works@gmail.com",
     "socials": [

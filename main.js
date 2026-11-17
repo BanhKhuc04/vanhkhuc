@@ -12,6 +12,22 @@ const url = u => { u = String(u || '').trim(); return /^[a-z][\w+.-]*:/i.test(u)
 const get = (o, path) => path.split('.').reduce((a, k) => a?.[k], o);
 const host = u => { try { return new URL(u).host; } catch { return u; } };
 const projectUrl = p => `projects.html?p=${encodeURIComponent(p.slug)}`;
+const postUrl = p => `blog.html?p=${encodeURIComponent(p.slug)}`;
+const fmtDate = d => { const t = new Date(d); return isNaN(t) ? esc(d) : t.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' }); };
+const isFile = u => /\.(mp4|webm|mov)(\?|#|$)/i.test(u || '');
+const ytId = u =>String(u || '').match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|embed\/|live\/))([\w-]{11})/)?.[1];
+const newest = posts => [...(posts || [])].sort((a, b) => String(b.date).localeCompare(String(a.date)));
+
+// Post body: blank line = new paragraph, "## " = heading, "- " = list item, **bold**, bare URLs become links.
+const rich = s => String(s).split(/(https?:\/\/[^\s<>"']*[^\s<>"'.,;:!?)])/).map((t, i) =>
+  i % 2 ? `<a href="${esc(t)}" target="_blank" rel="noopener">${esc(t)}</a>` : esc(t).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')).join('');
+function block(ls) {
+  if (!ls.length) return '';
+  if (ls[0].startsWith('## ')) return `<h2>${rich(ls[0].slice(3))}</h2>` + block(ls.slice(1));
+  if (ls.every(l => /^[-•] /.test(l))) return `<ul>${ls.map(l => `<li>${rich(l.slice(2))}</li>`).join('')}</ul>`;
+  return `<p>${ls.map(rich).join('<br>')}</p>`;
+}
+const bodyHTML = t => String(t || '').split(/\n\s*\n/).map(b => block(b.split('\n').map(l => l.trim()).filter(Boolean))).join('');
 
 /* ---------- K4 logo (traced from brand artwork) ---------- */
 const LOGO = `<svg class="logo" viewBox="240 265 1430 1440" aria-hidden="true" focusable="false">
@@ -38,7 +54,9 @@ const PICONS = {
   bowl: 'M6 24 H42 C42 34 34 40 24 40 C14 40 6 34 6 24 Z M17 43 H31 M17 18 C17 14 20 14 20 10 M24 18 C24 14 27 14 27 10 M31 18 C31 14 34 14 34 10',
   code: 'M17 14 L7 24 L17 34 M31 14 L41 24 L31 34 M27 10 L21 38',
   chip: 'M14 14 H34 V34 H14 Z M20 20 H28 V28 H20 Z M19 14 V7 M24 14 V7 M29 14 V7 M19 34 V41 M24 34 V41 M29 34 V41 M14 19 H7 M14 24 H7 M14 29 H7 M34 19 H41 M34 24 H41 M34 29 H41',
-  eye: 'M4 24 C12 12 36 12 44 24 C36 36 12 36 4 24 Z M24 17a7 7 0 1 1 0 14a7 7 0 1 1 0-14Z'
+  eye: 'M4 24 C12 12 36 12 44 24 C36 36 12 36 4 24 Z M24 17a7 7 0 1 1 0 14a7 7 0 1 1 0-14Z',
+  bulb: 'M24 5a13 13 0 0 1 7 24v5H17v-5a13 13 0 0 1 7-24Z M18 39h12 M21 44h6',
+  play: 'M24 5a19 19 0 1 1 0 38a19 19 0 1 1 0-38Z M19 15v18l15-9Z'
 };
 const PALETTE = [['#2E3192', '#5A5FE0'], ['#7F1D1D', '#D97706'], ['#0E7490', '#6366F1'], ['#166534', '#84CC16'], ['#BE123C', '#F59E0B']];
 const hex = c => /^#[0-9a-f]{3,8}$/i.test(c || '') ? c : null; // colours go into inline CSS
@@ -81,6 +99,55 @@ const shotHTML = p => p.image ? `<img class="browser__img" src="${url(p.image)}"
 const cardHTML = p => `<a class="card" href="${projectUrl(p)}" data-cursor="Xem ↗" data-cat="${esc(p.category)}">
   <div class="card__art art">${cover(p)}<span class="art__tag">${esc(p.category)}</span></div>
   <div class="card__meta"><h3>${esc(p.title)}</h3><span>${esc(p.year)}</span></div></a>`;
+
+// Post thumbnail: own image → YouTube thumbnail → generated cover.
+function postThumb(p) {
+  const yt = ytId(p.video), src = p.image || (yt && `https://i.ytimg.com/vi/${yt}/hqdefault.jpg`);
+  return src ? `<img class="browser__img" src="${url(src)}" alt="" loading="lazy">`
+    : cover({ slug: p.slug, title: p.title, icon: p.video ? 'play' : 'bulb' }, false);
+}
+const postHTML = (p, i = 0) => `<a class="post reveal" style="--d:${i * .1}s" href="${postUrl(p)}" data-cursor="${p.video ? 'Xem' : 'Đọc'} ↗">
+  <span class="browser__view post__thumb">${postThumb(p)}${p.video ? '<span class="post__play" aria-label="Video">▶</span>' : ''}${p.tag ? `<span class="art__tag">${esc(p.tag)}</span>` : ''}</span>
+  <span class="post__date mono">${fmtDate(p.date)}</span>
+  <h3>${esc(p.title)}</h3><p>${esc(p.summary)}</p></a>`;
+
+// Big news board: the pinned post (or newest), full-bleed gradient in the post's colours.
+const topPost = posts => posts.find(p => p.pin) || posts[0];
+function boardHTML(p) {
+  const c1 = hex(p.colors?.[0]) || '#2E3192', c2 = hex(p.colors?.[1]) || '#5A5FE0';
+  const yt = ytId(p.video), file = isFile(p.video), more = 'Đọc bài';
+  // intro video plays right in the board: mp4 loops muted, YouTube loads on click
+  const view = file
+    ? `<video src="${url(p.video)}" ${p.image ? `poster="${url(p.image)}"` : ''} ${reduce ? 'controls' : 'autoplay'} muted loop playsinline preload="metadata"></video>
+       <button class="board__sound" data-unmute>🔊 Bật tiếng</button>`
+    : yt ? `${postThumb(p)}<button class="post__play" data-yt="${yt}" aria-label="Phát video">▶</button>`
+    : postThumb(p) + (p.video ? '<span class="post__play" aria-hidden="true">▶</span>' : '');
+  const frame = `<span class="browser"><span class="browser__bar"><i></i><i></i><i></i><b class="mono">${esc(p.link ? host(p.link) : 'vanhkhuc.id.vn')}</b></span>
+          <span class="browser__view">${view}</span></span>
+        <svg class="board__sticker" viewBox="0 0 200 200" aria-hidden="true">
+          <defs><path id="circ3" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"/></defs>
+          <circle cx="100" cy="100" r="98"/><text><textPath href="#circ3" textLength="448">MỚI RA MẮT ✦ XEM NGAY ✦ </textPath></text>
+          <text class="board__star" x="100" y="120" text-anchor="middle">★</text></svg>`;
+  const items = ['Bảng tin', p.tag, p.title, p.link && host(p.link)].filter(Boolean).map(t => `<span>${esc(t)}</span><b>✦</b>`).join('');
+  const tick = `<div class="marquee__track">${items.repeat(3)}</div>`;
+  return `<article class="board reveal" style="--c1:${c1};--c2:${c2}">
+    <div class="board__ticker" aria-hidden="true">${tick}${tick}</div>
+    <div class="board__body">
+      <span class="cv__blob"></span><span class="cv__blob cv__blob--2"></span><span class="cv__grid"></span>
+      <span class="board__mark" aria-hidden="true">${LOGO}</span>
+      <div class="board__text">
+        <p class="board__kicker"><span class="board__new">✦ Nổi bật</span>${p.tag ? `<span>${esc(p.tag)}</span><span>·</span>` : ''}<span>${fmtDate(p.date)}</span></p>
+        <h2 class="board__title">${esc(p.title)}</h2>
+        ${p.summary ? `<p class="board__lead">${esc(p.summary)}</p>` : ''}
+        <div class="board__cta">
+          ${p.link ? `<a class="btn btn--accent magnetic" href="${url(p.link)}" target="_blank" rel="noopener">${esc(p.linkLabel || 'Mở link')} <span class="arr">↗</span></a>` : ''}
+          <a class="btn ${p.link ? 'btn--light' : 'btn--accent'} magnetic" href="${postUrl(p)}">${more} <span class="arr">→</span></a>
+        </div>
+      </div>
+      ${yt || file ? `<div class="board__media board__media--video">${frame}</div>`
+        : `<a class="board__media" href="${postUrl(p)}" data-cursor="${more} ↗" aria-label="${more}: ${esc(p.title)}">${frame}</a>`}
+    </div></article>`;
+}
 
 const browserHTML = p => `<span class="browser__bar"><i></i><i></i><i></i><b class="mono">${esc(p.live ? host(p.live) : p.title)}</b></span>
   <span class="browser__view">${shotHTML(p)}</span>`;
@@ -131,6 +198,14 @@ function renderHome(C) {
         <a class="btn btn--ghost magnetic" href="${projectUrl(p)}">Chi tiết</a>
       </div>
     </div></article>`).join('') || '<p class="empty hand">Chưa có web nào được bật trong hub.</p>';
+
+  const posts = newest(C.posts);
+  if (posts.length) {
+    const top = topPost(posts);
+    $('#newsBoard').innerHTML = boardHTML(top);
+    $('#postGrid').innerHTML = posts.filter(p => p !== top).slice(0, 3).map(postHTML).join('');
+  } else $$('#news, a[href="#news"]').forEach(el => el.remove());
+  $$('main .label > span').forEach((s, i) => { s.textContent = String(i + 1).padStart(2, '0'); }); // keep numbering when a section is hidden
 
   $('#socials').innerHTML = (C.contact?.socials || []).map(s =>
     `<li><a href="${url(s.url)}" target="_blank" rel="noopener">${esc(s.label)}</a></li>`).join('');
@@ -191,6 +266,38 @@ function renderProjects(C) {
     </div></article>`;
 }
 
+function renderBlog(C) {
+  const posts = newest(C.posts);
+  const p = posts.find(x => x.slug === new URLSearchParams(location.search).get('p'));
+  const main = $('#page');
+
+  if (!p) {
+    const top = topPost(posts);
+    main.innerHTML = `<section class="news news--page">
+      <div class="news__head"><h1 class="h2 reveal">Bảng tin.</h1><div class="label reveal"><span>✦</span> ${posts.length} bài</div></div>
+      ${top ? boardHTML(top) : '<p class="empty hand">Chưa có bài nào.</p>'}
+      <div class="posts__grid">${posts.filter(p => p !== top).map(postHTML).join('')}</div></section>`;
+    return;
+  }
+
+  document.title = `${p.title} — Khúc Việt Anh`;
+  const yt = ytId(p.video);
+  main.innerHTML = `<article class="pv">
+    <a class="pd__back" href="blog.html">← Bảng tin</a>
+    <p class="pd__meta mono fade">${fmtDate(p.date)} ${p.tag ? `<span class="pill">${esc(p.tag)}</span>` : ''}</p>
+    <h1 class="pv__title fade" style="--d:.1s">${esc(p.title)}</h1>
+    ${p.summary ? `<p class="pv__lead fade" style="--d:.2s">${esc(p.summary)}</p>` : ''}
+    ${isFile(p.video) ? `<div class="pv__media fade" style="--d:.3s"><video src="${url(p.video)}" ${p.image ? `poster="${url(p.image)}"` : ''} controls playsinline preload="metadata"></video></div>`
+      : yt ? `<div class="pv__media fade" style="--d:.3s"><iframe src="https://www.youtube-nocookie.com/embed/${yt}" title="${esc(p.title)}" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe></div>`
+      : p.image ? `<div class="pv__media pv__media--img fade" style="--d:.3s"><img src="${url(p.image)}" alt=""></div>` : ''}
+    <div class="pv__body fade" style="--d:.4s">${bodyHTML(p.body)}</div>
+    <div class="pd__cta fade" style="--d:.5s">
+      ${p.video && !yt && !isFile(p.video) ? `<a class="btn btn--solid magnetic" href="${url(p.video)}" target="_blank" rel="noopener">Xem video <span class="arr">↗</span></a>` : ''}
+      ${p.link ? `<a class="btn btn--solid magnetic" href="${url(p.link)}" target="_blank" rel="noopener">${esc(p.linkLabel || 'Mở link')} <span class="arr">↗</span></a>` : ''}
+      <button class="btn btn--ghost" data-copy="${esc(location.href)}">Sao chép link</button>
+    </div></article>`;
+}
+
 /* ---------- loader ---------- */
 const loader = $('#loader');
 const content = loadContent();
@@ -212,7 +319,7 @@ const minWait = new Promise(res => {
 
 content.then(C => {
   renderBinds(C);
-  page === 'home' ? renderHome(C) : renderProjects(C);
+  ({ home: renderHome, blog: renderBlog }[page] || renderProjects)(C);
   initEffects();
 }).catch(err => {
   console.error(err);
@@ -361,6 +468,12 @@ function initEffects() {
       c.addEventListener('pointerleave', () => { a.style.transform = ''; });
     });
   }
+
+  document.addEventListener('click', e => {
+    const y = e.target.closest('[data-yt]'), m = e.target.closest('[data-unmute]');
+    if (y) y.parentElement.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(y.dataset.yt)}?autoplay=1&rel=0" title="Video" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+    if (m) { const v = m.parentElement.querySelector('video'); v.muted = false; v.controls = true; v.play().catch(() => {}); m.remove(); }
+  });
 
   $$('[data-copy]').forEach(b => b.addEventListener('click', async () => {
     try { await navigator.clipboard.writeText(b.dataset.copy); } catch { return; }

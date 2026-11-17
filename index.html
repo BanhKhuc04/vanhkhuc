@@ -40,10 +40,10 @@
 <header class="nav" id="nav">
   <a href="#top" class="nav__brand" aria-label="Khúc Việt Anh — về đầu trang"><span class="nav__logo" data-logo></span><span class="mono">vanhkhuc</span></a>
   <nav class="nav__links" aria-label="Chính">
+    <a href="#news">Bảng tin</a>
     <a href="#about">Giới thiệu</a>
     <a href="#work">Dự án</a>
     <a href="#hub">Web &amp; tiện ích</a>
-    <a href="#process">Quy trình</a>
   </nav>
   <a href="#contact" class="btn btn--dark magnetic">Liên hệ <span class="arr">→</span></a>
 </header>
@@ -96,9 +96,19 @@
   </div>
 </div>
 
+<!-- NEWS -->
+<section class="news" id="news">
+  <div class="news__head">
+    <div class="label reveal"><span>01</span> Bảng tin</div>
+    <a class="news__all" href="blog.html">Xem tất cả bài <span class="arr">→</span></a>
+  </div>
+  <div id="newsBoard"></div>
+  <div class="posts__grid" id="postGrid"></div>
+</section>
+
 <!-- ABOUT -->
 <section class="about wrap" id="about">
-  <div class="label reveal"><span>01</span> Giới thiệu</div>
+  <div class="label reveal"><span>02</span> Giới thiệu</div>
   <div class="about__grid">
     <figure class="polaroid reveal">
       <span class="tape" aria-hidden="true"></span>
@@ -115,7 +125,7 @@
 
 <!-- SKILLS -->
 <section class="services wrap" id="services">
-  <div class="label reveal"><span>02</span> Kỹ năng</div>
+  <div class="label reveal"><span>03</span> Kỹ năng</div>
   <h2 class="h2 reveal">Từ pixel trên màn hình<br>tới con chip trong phòng.</h2>
   <div class="services__grid" id="skills"></div>
 </section>
@@ -125,7 +135,7 @@
   <div class="work__sticky">
     <div class="work__head">
       <div>
-        <div class="label"><span>03</span> Dự án</div>
+        <div class="label"><span>04</span> Dự án</div>
         <h2 class="h2">Dự án chọn lọc</h2>
       </div>
       <div class="work__count"><span id="workNum">01</span> / <em id="workTotal">01</em><i><b id="workBar"></b></i></div>
@@ -136,7 +146,7 @@
 
 <!-- HUB -->
 <section class="hub wrap" id="hub">
-  <div class="label reveal"><span>04</span> Web &amp; tiện ích</div>
+  <div class="label reveal"><span>05</span> Web &amp; tiện ích</div>
   <div class="hub__head">
     <h2 class="h2 reveal">Bấm vào là chạy.</h2>
     <p class="reveal">Những web mình đã làm và đang chạy online — mở ra dùng thử luôn, không cần cài gì.</p>
@@ -144,9 +154,24 @@
   <div class="hub__grid" id="hubGrid"></div>
 </section>
 
+<!-- PROCESS -->
+<section class="process wrap" id="process">
+  <div class="label reveal"><span>06</span> Quy trình</div>
+  <h2 class="h2 reveal">Từ bản phác thảo<br>tới bản deploy.</h2>
+  <div class="process__body" id="procBody">
+    <div class="process__line" aria-hidden="true"></div>
+    <ol class="steps">
+      <li class="step"><span class="step__n hand">01</span><h3>Hiểu vấn đề</h3><p>Hỏi đúng câu hỏi: ai dùng, dùng để làm gì, thế nào là "xong". Đọc kỹ yêu cầu trước khi gõ dòng code đầu tiên.</p></li>
+      <li class="step"><span class="step__n hand">02</span><h3>Thiết kế hệ thống</h3><p>Vẽ luồng dữ liệu, chia API và database, chọn công nghệ vừa đủ — không thừa, không thiếu.</p></li>
+      <li class="step"><span class="step__n hand">03</span><h3>Code &amp; test</h3><p>Viết code gọn, dễ đọc. Test những phần quan trọng, tự review lại trước khi gộp vào nhánh chính.</p></li>
+      <li class="step"><span class="step__n hand">04</span><h3>Deploy &amp; vận hành</h3><p>CI/CD đẩy bản mới lên server, theo dõi lỗi, sửa nhanh và cải tiến theo phản hồi thật của người dùng.</p></li>
+    </ol>
+  </div>
+</section>
+
 <!-- BRAND -->
 <section class="brand wrap" id="brand">
-  <div class="label reveal"><span>05</span> Logo</div>
+  <div class="label reveal"><span>07</span> Logo</div>
   <h2 class="h2 reveal">Một logo.<br>Ba cách kể.</h2>
   <div class="brand__grid">
     <figure class="tile tile--blue reveal" style="--d:0s"><div class="tile__logo" data-logo></div><figcaption>Bản chính · Indigo</figcaption></figure>
@@ -178,21 +203,6 @@
         <p class="hand build__hint">bấm vào màu để copy mã ✦</p>
       </figcaption>
     </figure>
-  </div>
-</section>
-
-<!-- PROCESS -->
-<section class="process wrap" id="process">
-  <div class="label reveal"><span>06</span> Quy trình</div>
-  <h2 class="h2 reveal">Từ bản phác thảo<br>tới bản deploy.</h2>
-  <div class="process__body" id="procBody">
-    <div class="process__line" aria-hidden="true"></div>
-    <ol class="steps">
-      <li class="step"><span class="step__n hand">01</span><h3>Hiểu vấn đề</h3><p>Hỏi đúng câu hỏi: ai dùng, dùng để làm gì, thế nào là "xong". Đọc kỹ yêu cầu trước khi gõ dòng code đầu tiên.</p></li>
-      <li class="step"><span class="step__n hand">02</span><h3>Thiết kế hệ thống</h3><p>Vẽ luồng dữ liệu, chia API và database, chọn công nghệ vừa đủ — không thừa, không thiếu.</p></li>
-      <li class="step"><span class="step__n hand">03</span><h3>Code &amp; test</h3><p>Viết code gọn, dễ đọc. Test những phần quan trọng, tự review lại trước khi gộp vào nhánh chính.</p></li>
-      <li class="step"><span class="step__n hand">04</span><h3>Deploy &amp; vận hành</h3><p>CI/CD đẩy bản mới lên server, theo dõi lỗi, sửa nhanh và cải tiến theo phản hồi thật của người dùng.</p></li>
-    </ol>
   </div>
 </section>
 

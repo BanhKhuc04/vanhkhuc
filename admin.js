@@ -68,6 +68,13 @@ function validate() {
     if (slugs.has(p.slug)) errs.push(`Slug "${p.slug}" bị trùng.`);
     slugs.add(p.slug);
   });
+  const pslugs = new Set();
+  (data.posts || []).forEach((p, i) => {
+    if (!p.title?.trim()) errs.push(`Bài viết #${i + 1} chưa có tiêu đề.`);
+    p.slug = slugify(p.slug || p.title);
+    if (pslugs.has(p.slug)) errs.push(`Bài viết: slug "${p.slug}" bị trùng.`);
+    pslugs.add(p.slug);
+  });
   if (data.contact?.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.contact.email)) errs.push('Email liên hệ không hợp lệ.');
   return errs;
 }
@@ -128,6 +135,7 @@ const F = {
   area: (path, label, rows = 4, type = '', hint = '') => `<label class="f"><span>${label} ${hint ? `<small>${hint}</small>` : ''}</span><textarea data-path="${path}" data-type="${type}" rows="${rows}">${esc(fmt(get(data, path), type))}</textarea></label>`,
   check: (path, label) => `<label class="f chk"><input type="checkbox" data-path="${path}" data-type="bool" ${get(data, path) ? 'checked' : ''}><span>${label}</span></label>`,
   select: (path, label, opts) => `<label class="f"><span>${label}</span><select data-path="${path}" data-type="${typeof opts[0][0] === 'number' ? 'number' : ''}">${opts.map(([v, t]) => `<option value="${v}" ${get(data, path) == v ? 'selected' : ''}>${t}</option>`).join('')}</select></label>`,
+  date: (path, label) => `<label class="f"><span>${label}</span><input type="date" data-path="${path}" value="${esc(get(data, path))}"></label>`,
   color: (path, label) => `<label class="f"><span>${label}</span><input type="color" data-path="${path}" value="${/^#[0-9a-f]{6}$/i.test(get(data, path)) ? get(data, path) : '#2e3192'}"></label>`,
   image: (path, label) => `<div class="f"><span>${label}</span><div class="img-field"><img src="${esc(get(data, path))}" alt="" data-preview="${path}" onerror="this.style.visibility='hidden'" onload="this.style.visibility=''">
     <div><input data-path="${path}" value="${esc(get(data, path))}" placeholder="assets/... hoặc https://..."><label class="up">Tải ảnh lên<input type="file" accept="image/*" data-upload="${path}" hidden></label></div></div></div>`
@@ -145,13 +153,14 @@ const NEW = {
   'about.stats': () => ({ value: 0, suffix: '', label: '' }),
   skills: () => ({ icon: 'web', title: '', text: '', tags: [] }),
   'contact.socials': () => ({ label: '', url: '' }),
+  posts: () => ({ slug: '', title: '', date: new Date().toLocaleDateString('sv'), tag: 'Mẹo hay', summary: '', body: '', image: '', video: '', link: '', linkLabel: '', pin: false, colors: ['#2E3192', '#5A5FE0'] }),
   projects: () => ({ slug: '', title: 'Dự án mới', year: String(new Date().getFullYear()), category: 'Web app', status: 'Hoàn thành', summary: '', description: '', features: [], stack: [], live: '', repo: '', image: '', logo: '', icon: 'code', colors: ['#2E3192', '#5A5FE0'], featured: true, hub: false })
 };
 const ICON_OPTS = [['code', 'Code'], ['tree', 'Cây gia phả'], ['wave', 'Sóng âm'], ['home', 'Nhà thông minh'], ['shield', 'Khiên'], ['power', 'Nút nguồn'],
   ['tomato', 'Cà chua / hẹn giờ'], ['leaf', 'Lá'], ['scissors', 'Kéo cắt'], ['bowl', 'Bát ăn'], ['chip', 'Chip'], ['eye', 'Mắt / AI']];
 
 /* ---------- views ---------- */
-const TABS = [['profile', 'Hồ sơ & Hero'], ['about', 'Giới thiệu'], ['skills', 'Kỹ năng'], ['projects', 'Dự án'], ['contact', 'Liên hệ'], ['json', 'JSON']];
+const TABS = [['profile', 'Hồ sơ & Hero'], ['about', 'Giới thiệu'], ['skills', 'Kỹ năng'], ['projects', 'Dự án'], ['posts', 'Bài viết'], ['contact', 'Liên hệ'], ['json', 'JSON']];
 
 function viewTab() {
   switch (tab) {
@@ -172,6 +181,15 @@ function viewTab() {
     case 'skills': return `<h2 class="sec-h">Kỹ năng</h2>
       ${listBlock('skills', p => `<div class="row">${F.text(p + '.title', 'Tên')}${F.select(p + '.icon', 'Biểu tượng', [['web', 'Web'], ['server', 'Server'], ['ai', 'AI / mắt'], ['iot', 'Chip IoT']])}</div>
         ${F.area(p + '.text', 'Mô tả', 2)}${F.area(p + '.tags', 'Thẻ', 1, 'csv', 'cách nhau bằng dấu phẩy')}`, 'Thêm kỹ năng')}`;
+    case 'posts': (data.posts ||= []).forEach(x => { if (!Array.isArray(x.colors)) x.colors = ['#2E3192', '#5A5FE0']; }); // so colors.0/.1 stay an array
+      return `<h2 class="sec-h">Bài viết &amp; video <small style="font-size:13px;font-weight:400">— web tự xếp bài mới nhất lên đầu theo ngày</small></h2>
+      ${listBlock('posts', p => `<div class="row">${F.text(p + '.title', 'Tiêu đề')}${F.text(p + '.tag', 'Nhãn', 'Mẹo hay, Tiện ích, Video, Quảng bá…')}${F.date(p + '.date', 'Ngày đăng')}</div>
+        ${F.area(p + '.summary', 'Tóm tắt', 2, '', 'hiện trên thẻ ở trang chủ')}
+        ${F.area(p + '.body', 'Nội dung', 10, '', 'dòng trống = đoạn mới · "## " = tiêu đề · "- " = gạch đầu dòng · **đậm** · link tự bấm được')}
+        ${F.text(p + '.video', 'Video giới thiệu', 'link YouTube, hoặc file .mp4 (tự chạy không tiếng trong bảng tin) · TikTok / Facebook mở tab mới')}
+        ${F.image(p + '.image', 'Ảnh bìa (ngang 16:9; để trống sẽ lấy ảnh từ YouTube)')}
+        <div class="row">${F.text(p + '.link', 'Link nút kêu gọi', 'vd: web, sản phẩm muốn quảng bá')}${F.text(p + '.linkLabel', 'Chữ trên nút', 'vd: Dùng thử ngay')}${F.text(p + '.slug', 'Slug', 'để trống sẽ tự tạo từ tiêu đề')}</div>
+        <div class="row">${F.check(p + '.pin', 'Ghim lên bảng tin lớn (không ghim bài nào → lấy bài mới nhất)')}${F.color(p + '.colors.0', 'Màu bảng tin 1')}${F.color(p + '.colors.1', 'Màu bảng tin 2')}</div>`, 'Thêm bài viết')}`;
     case 'contact': return `<h2 class="sec-h">Liên hệ</h2>
       ${F.text('contact.email', 'Email')}
       <h2 class="sec-h">Mạng xã hội</h2>
